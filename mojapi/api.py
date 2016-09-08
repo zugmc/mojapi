@@ -58,6 +58,8 @@ def get_detailed_profile(uuid):
     for property in body['properties']:
         if property['name'] == 'textures':
             skin_info = json.loads(base64.decodebytes(property['value'].encode()).decode())
+            timestamp = skin_info['timestamp']
+            skin_info['timestamp'] = currenttimemillis_to_python_datetime(timestamp)
             property['value'] = skin_info
     return body
 
