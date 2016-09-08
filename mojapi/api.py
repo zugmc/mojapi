@@ -1,3 +1,4 @@
+import base64
 import json
 
 import requests
@@ -11,6 +12,7 @@ __all__= [
     'get_uuid',
     'get_usernames',
     'get_profiles',
+    'get_detailed_profile',
     'get_blocked_server_hashes'
 ]
 
@@ -47,6 +49,17 @@ def get_profiles(*usernames):
         },
         data=json.dumps(list(usernames))
     ).json()
+
+
+def get_detailed_profile(uuid):
+    response = requests.get('https://sessionserver.mojang.com/session/minecraft/profile/{}'.format(uuid))
+    response.raise_for_status()
+    body = response.json()
+    for property in body['properties']:
+        if property['name'] == 'textures':
+            skin_info = json.loads(base64.decodebytes(property['value'].encode()).decode())
+            property['value'] = skin_info
+    return body
 
 
 def get_blocked_server_hashes():
