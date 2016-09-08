@@ -2,12 +2,12 @@
 Python library for interacting with Mojang APIs.
 
 # Installation
-Install using pip.
-
-`pip install mojapi`
+```
+pip install mojapi
+```
 
 # Usage
-Make basic API requests to Mojang as laid out at http://wiki.vg/Mojang_API. Where appropriate, timestamps are converted to native Python datetimes and base64 encoded JSON objects are automatically expanded.
+Make basic API requests to Mojang as laid out at http://wiki.vg/Mojang_API. Where appropriate, timestamps are converted to native Python `datetime` objects, and base64 encoded JSON objects are automatically expanded.
 
 ```python
 >>> from mojapi import *
