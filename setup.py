@@ -12,7 +12,7 @@ with open(path.join(here, 'README.md'), encoding='UTF-8') as f:
 
 setup(
     name='mojapi',
-    version='0.0.1',
+    version='0.1.0',
     url='https://github.com/zugmc/mojapi/',
     author='gozug',
     author_email='gozug@zugmc.com',

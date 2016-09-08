@@ -19,19 +19,25 @@ __all__= [
 
 
 def get_statuses():
-    return requests.get('https://status.mojang.com/check/').json()
+    response = requests.get('https://status.mojang.com/check/')
+    response.raise_for_status()
+    return response.json()
 
 
 def get_uuid(username, unix_timestamp=None):
     if unix_timestamp is None:
         unix_timestamp = int(time.time())
-    return requests.get(
+    response = requests.get(
         'https://api.mojang.com/users/profiles/minecraft/{}?at={}'.format(username, unix_timestamp)
-    ).json()
+    )
+    response.raise_for_status()
+    return response.json()
 
 
 def get_usernames(uuid):
-    username_infos = requests.get('https://api.mojang.com/user/profiles/{}/names'.format(uuid)).json()
+    response = requests.get('https://api.mojang.com/user/profiles/{}/names'.format(uuid))
+    response.raise_for_status()
+    username_infos = response.json()
     for username_info in username_infos:
         try:
             changed_to_at = username_info['changedToAt']
@@ -43,13 +49,15 @@ def get_usernames(uuid):
 
 
 def get_profiles(*usernames):
-    return requests.post(
+    response = requests.post(
         url='https://api.mojang.com/profiles/minecraft',
         headers={
             b'Content-Type': b'application/json'
         },
         data=json.dumps(list(usernames))
-    ).json()
+    )
+    response.raise_for_status()
+    return response.json()
 
 
 def get_detailed_profile(uuid):
