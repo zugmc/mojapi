@@ -12,7 +12,7 @@ with open(path.join(here, 'README.md'), encoding='UTF-8') as f:
 
 setup(
     name='mojapi',
-    version='0.1.0',
+    version='0.1.1',
     url='https://github.com/zugmc/mojapi/',
     author='gozug',
     author_email='gozug@zugmc.com',
@@ -26,7 +26,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    download_url='https://github.com/zugmc/mojapi/tarball/0.1.0',
+    download_url='https://github.com/zugmc/mojapi/tarball/0.1.1',
     description='Python library for interacting with Mojang APIs',
     long_description=long_description,
     packages=find_packages(),
