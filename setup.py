@@ -26,7 +26,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    download_url='https://github.com/zugmc/mojapi/archive/0.1.0.zip',
+    download_url='https://github.com/zugmc/mojapi/tarball/0.1.0',
     description='Python library for interacting with Mojang APIs',
     long_description=long_description,
     packages=find_packages(),
