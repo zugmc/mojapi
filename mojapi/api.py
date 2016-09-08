@@ -3,6 +3,17 @@ import json
 import requests
 import time
 
+from .utils import currenttimemillis_to_python_datetime
+
+
+__all__= [
+    'get_statuses',
+    'get_uuid',
+    'get_usernames',
+    'get_profiles',
+    'get_blocked_server_hashes'
+]
+
 
 def get_statuses():
     return requests.get('https://status.mojang.com/check/').json()
@@ -17,7 +28,15 @@ def get_uuid(username, unix_timestamp=None):
 
 
 def get_usernames(uuid):
-    return requests.get('https://api.mojang.com/user/profiles/{}/names'.format(uuid)).json()
+    username_infos = requests.get('https://api.mojang.com/user/profiles/{}/names'.format(uuid)).json()
+    for username_info in username_infos:
+        try:
+            changed_to_at = username_info['changedToAt']
+        except KeyError:
+            continue
+        else:
+            username_info['changedToAt'] = currenttimemillis_to_python_datetime(changed_to_at)
+    return username_infos
 
 
 def get_profiles(*usernames):
