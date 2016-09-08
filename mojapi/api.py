@@ -13,7 +13,8 @@ __all__= [
     'get_usernames',
     'get_profiles',
     'get_detailed_profile',
-    'get_blocked_server_hashes'
+    'get_blocked_server_hashes',
+    'get_statistics'
 ]
 
 
@@ -69,3 +70,24 @@ def get_blocked_server_hashes():
     response.raise_for_status()
     sha1_hashes = response.content.split(b'\n')
     return sha1_hashes
+
+
+def get_statistics(keys=None):
+    if keys is None:
+        keys = [
+            'item_sold_minecraft',
+            'prepaid_card_redeemed_minecraft',
+            'item_sold_cobalt',
+            'item_sold_scrolls'
+        ]
+    response = requests.post(
+        url='https://api.mojang.com/orders/statistics',
+        headers={
+            b'Content-Type': b'application/json'
+        },
+        data=json.dumps({
+            'metricKeys': keys
+        })
+    )
+    response.raise_for_status()
+    return response.json()
