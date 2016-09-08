@@ -28,3 +28,10 @@ def get_profiles(*usernames):
         },
         data=json.dumps(list(usernames))
     ).json()
+
+
+def get_blocked_server_hashes():
+    response = requests.get('https://sessionserver.mojang.com/blockedservers')
+    response.raise_for_status()
+    sha1_hashes = response.content.split(b'\n')
+    return sha1_hashes
